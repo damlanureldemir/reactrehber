@@ -8,6 +8,8 @@ import ProfileDropdown from "./ProfileDropdown"; // Profil dropdown bileşeni
 
 
 
+
+
 const PeopleList = () => {
   const [countries, setCountries] = useState([]); // Ülke listesi için state
   const [people, setPeople] = useState([]);
@@ -62,23 +64,23 @@ const PeopleList = () => {
   };
 
   const handleAddSuccess = () => {
-    setShowAddModal(false); // Modalı kapat
-    fetchPeople(); // Listeyi güncelle
+    setShowAddModal(false); 
+    fetchPeople(); 
   };
   const handleUpdateSuccess = () => {
     setShowUpdateModal(false);
     fetchPeople(); 
   };
   const handleEditClick = (person) => {
-    setSelectedPerson(person); // Seçilen kişiyi güncellemek için
-    setShowUpdateModal(true); // Güncelleme modali aç
+    setSelectedPerson(person); 
+    setShowUpdateModal(true);
   };
   const handleLogout = async () => {
     try {
       await axios.post("http://localhost:5200/api/user/logout", null, {
         withCredentials: true,
       });
-      window.location.href = "/"; // veya giriş sayfası neredeyse
+      window.location.href = "/";
     } catch (error) {
       console.error("Çıkış sırasında hata:", error);
       alert("Çıkış yapılamadı.");
@@ -135,15 +137,16 @@ const PeopleList = () => {
 
   return (
     <div className="container">
-      <button
-        className="btn btn-primary mb-3"
-        onClick={() => setShowAddModal(true)}
-      >
-        Kişi Ekle
-      </button>
-      <div className="d-flex justify-content-end mb-3">
-  <ProfileDropdown onLogout={handleLogout} />
-</div>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+    <button
+      className="btn btn-primary"
+      onClick={() => setShowAddModal(true)}
+    >
+      Kişi Ekle
+    </button>
+
+    <ProfileDropdown onLogout={handleLogout} />
+  </div>
       <AddPersonModal
         show={showAddModal}
         onHide={() => setShowAddModal(false)}
@@ -156,7 +159,7 @@ const PeopleList = () => {
 <UpdatePersonModal
         show={showUpdateModal}
         onHide={() => setShowUpdateModal(false)}
-        person={selectedPerson}  // Güncellenecek kişiyi geçiyoruz
+        person={selectedPerson} 
         onSuccess={handleUpdateSuccess}
         countries={countries}
       />
